@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}View Applicants - CampusHire{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0;">
+    <div class="container">
+        <div style="margin-bottom: 40px;">
+            <a href="{{ url_for('department_dashboard') }}" class="text-muted" style="text-decoration: none; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 6px;">
+                ← Back to Dashboard
+            </a>
+            <h1 style="margin-top: 16px;">{{ position.title }}</h1>
+            <p class="text-muted" style="font-size: 1.1rem; margin-top: 8px;">{{ applications|length }} applicant(s) • Sorted by AI match score</p>
+        </div>
+        
+        {% if applications %}
+            <div style="display: grid; gap: 20px;">
+                {% for app in applications %}
+                <div class="card applicant-card applicant-card-{{ app.status }}">
+                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start;">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                                <div>
+                                    <h3 style="color: var(--primary); margin-bottom: 4px;">{{ app.student.full_name }}</h3>
+                                    <p class="text-muted" style="font-size: 0.95rem;">{{ app.student.email }}</p>
+                                </div>
+                                <span class="badge badge-{{ app.status }}">{{ app.status.replace('_', ' ').title() }}</span>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px;">
+                                <div style="padding: 12px; background: var(--background); border-radius: 8px;">
+                                    <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;">School</div>
+                                    <div style="font-weight: 600; color: var(--primary);">{{ app.student.school }}</div>
+                                </div>
+                                <div style="padding: 12px; background: var(--background); border-radius: 8px;">
+                                    <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;">Level</div>
+                                    <div style="font-weight: 600; color: var(--primary);">{{ app.student.level }}</div>
+                                </div>
+                                <div style="padding: 12px; background: var(--background); border-radius: 8px;">
+                                    <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;">GPA</div>
+                                    <div style="font-weight: 600; color: var(--primary);">
+                                        {{ app.student.gpa if app.student.gpa else 'N/A' }}
+                                    </div>
+                                </div>
+                                <div style="padding: 12px; background: var(--background); border-radius: 8px;">
+                                    <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px;">Credits</div>
+                                    <div style="font-weight: 600; color: var(--primary);">
+                                        {{ app.student.credits if app.student.credits else 'N/A' }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                                {% if app.student.cv_path %}
+                                    <div style="margin-bottom: 12px;">
+                                        <a href="{{ url_for('uploaded_file', filename='cvs/' + app.student.cv_path) }}"
+                                        target="_blank"
+                                        style="font-size: 0.9rem; color: var(--primary); font-weight: 500; text-decoration: none;">
+                                            📄 View CV
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            {% if app.ai_score %}
+                            <div style="margin-bottom: 16px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--primary);">AI Match Score</h4>
+                                    <span class="ai-score-value
+                                               {% if app.ai_score >= 0.8 %} ai-score-high
+                                               {% elif app.ai_score >= 0.6 %} ai-score-medium
+                                               {% else %} ai-score-low
+                                               {% endif %}">
+                                        {{ (app.ai_score * 100)|round|int }}%
+                                    </span>
+                                </div>
+                                <div class="ai-score-bar-bg">
+                                    <div class="ai-score-bar-fill
+                                                {% if app.ai_score >= 0.8 %} ai-score-bar-high
+                                                {% elif app.ai_score >= 0.6 %} ai-score-bar-medium
+                                                {% else %} ai-score-bar-low
+                                                {% endif %}"
+                                         style="width: {{ (app.ai_score * 100)|round|int }}%;"></div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if app.ai_feedback %}
+                            <div style="padding: 16px; background: var(--background); border-radius: 10px; border-left: 3px solid var(--primary);">
+                                <h4 style="font-size: 0.9rem; font-weight: 600; color: var(--primary); margin-bottom: 8px;">AI Analysis</h4>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">{{ app.ai_feedback }}</p>
+                            </div>
+                            {% endif %}
+                            
+                            <p class="text-muted" style="font-size: 0.85rem; margin-top: 12px;">
+                                Applied {{ app.applied_at.strftime('%B %d, %Y at %I:%M %p') if app.applied_at else '' }}
+                            </p>
+                        </div>
+                        
+                        <div style="min-width: 200px;">
+                            <form method="POST" action="{{ url_for('update_application', app_id=app.id) }}">
+                                <div class="form-group" style="margin-bottom: 12px;">
+                                    <label class="form-label" style="font-size: 0.9rem;">Update Status</label>
+                                    <select name="status" class="form-control" style="font-size: 0.95rem;">
+                                        <option value="pending" {% if app.status == 'pending' %}selected{% endif %}>Pending</option>
+                                        <option value="under_review" {% if app.status == 'under_review' %}selected{% endif %}>Under Review</option>
+                                        <option value="accepted" {% if app.status == 'accepted' %}selected{% endif %}>Accepted</option>
+                                        <option value="rejected" {% if app.status == 'rejected' %}selected{% endif %}>Rejected</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 0.95rem;">Update Status</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="card text-center" style="padding: 60px 40px;">
+                <h3 style="color: var(--primary); margin-bottom: 16px;">No Applications Yet</h3>
+                <p class="text-muted">Students haven't applied to this position yet. Check back soon!</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

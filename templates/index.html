@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Find Your Perfect <span style="color: var(--accent);">Campus Job</span></h1>
+            <p class="hero-subtitle">CampusHire connects Al Akhawayn University students with part-time opportunities across all departments. Smart matching powered by AI.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('student_register') }}" class="btn btn-primary">Get Started as Student</a>
+                <a href="{{ url_for('department_register') }}" class="btn btn-secondary">Post a Position</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 80px 0; background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 style="color: var(--primary); margin-bottom: 16px;">How It Works</h2>
+            <p class="text-muted" style="font-size: 1.1rem;">Simple, smart, and efficient</p>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="card">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem; font-weight: 700; margin-bottom: 20px;">1</div>
+                <h3 style="margin-bottom: 12px; color: var(--primary);">Create Profile</h3>
+                <p class="text-muted">Students register with their academic information and upload their CV. Departments create accounts to post positions.</p>
+            </div>
+            
+            <div class="card">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent), #C89460); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem; font-weight: 700; margin-bottom: 20px;">2</div>
+                <h3 style="margin-bottom: 12px; color: var(--primary);">Smart Matching</h3>
+                <p class="text-muted">Our AI analyzes applications based on GPA, credits, skills, and requirements to rank candidates effectively.</p>
+            </div>
+            
+            <div class="card">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-light), var(--primary)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem; font-weight: 700; margin-bottom: 20px;">3</div>
+                <h3 style="margin-bottom: 12px; color: var(--primary);">Get Hired</h3>
+                <p class="text-muted">Receive notifications about your application status and interview invitations directly through the platform.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 80px 0;">
+    <div class="container">
+        <div class="grid grid-2" style="gap: 60px; align-items: center;">
+            <div>
+                <h2 style="color: var(--primary); margin-bottom: 24px;">For Students</h2>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 28px;">Discover part-time opportunities that fit your schedule and enhance your university experience.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--success); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Browse all available positions across AUI departments</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--success); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Apply with one click using your profile and CV</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--success); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Track your applications in real-time</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--success); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Get instant notifications about interview invites</span>
+                    </li>
+                </ul>
+                <a href="{{ url_for('student_register') }}" class="btn btn-primary mt-4">Join as Student</a>
+            </div>
+            <div>
+                <div class="card" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white;">
+                    <h3 style="color: white; margin-bottom: 20px;">Quick Stats</h3>
+                    <div style="display: grid; gap: 20px;">
+                        <div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">Easy</div>
+                            <div style="opacity: 0.9;">Application Process</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">AI</div>
+                            <div style="opacity: 0.9;">Powered Matching</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">Fast</div>
+                            <div style="opacity: 0.9;">Response Times</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 80px 0; background: white;">
+    <div class="container">
+        <div class="grid grid-2" style="gap: 60px; align-items: center;">
+            <div class="card" style="background: linear-gradient(135deg, var(--accent) 0%, #C89460 100%); color: white;">
+                <h3 style="color: white; margin-bottom: 20px;">Department Benefits</h3>
+                <div style="display: grid; gap: 20px;">
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">Smart</div>
+                        <div style="opacity: 0.9;">Candidate Ranking</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">Unified</div>
+                        <div style="opacity: 0.9;">Hiring Platform</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">Simple</div>
+                        <div style="opacity: 0.9;">Management Tools</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 style="color: var(--primary); margin-bottom: 24px;">For Departments</h2>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 28px;">Streamline your hiring process and find the best student talent efficiently.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Post positions with specific requirements (GPA, credits, skills)</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>AI-powered applicant ranking based on qualifications</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Review applications and CVs in one place</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Send automated interview notifications</span>
+                    </li>
+                </ul>
+                <a href="{{ url_for('department_register') }}" class="btn btn-accent mt-4">Register Department</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 80px 0; background: var(--primary-dark); color: white;">
+    <div class="container text-center">
+        <h2 style="color: var(--accent); margin-bottom: 24px;">Ready to Get Started?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9;">Join CampusHire today and transform how AUI manages student employment.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url_for('student_login') }}" class="btn btn-primary">Student Login</a>
+            <a href="{{ url_for('department_login') }}" class="btn" style="background: var(--accent); color: white;">Department Login</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

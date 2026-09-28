@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Available Positions - CampusHire{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0;">
+    <div class="container">
+        <div style="margin-bottom: 40px;">
+            <h1>Available Positions</h1>
+            <p class="text-muted" style="font-size: 1.1rem; margin-top: 8px;">Browse and apply to part-time opportunities across AUI departments</p>
+        </div>
+        
+        {% if positions %}
+            <div class="grid grid-2">
+                {% for position in positions %}
+                <div class="card" style="{% if position.id in applied_ids %}border: 2px solid var(--success); background: #F0F9F4;{% endif %}">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                        <div>
+                            <h3 style="color: var(--primary); margin-bottom: 8px;">{{ position.title }}</h3>
+                            <p style="color: var(--accent); font-weight: 500; font-size: 0.95rem;">{{ position.department_name }}</p>
+                        </div>
+                        {% if position.id in applied_ids %}
+                            <span class="badge" style="background: var(--success); color: white;">Applied</span>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="text-muted" style="margin-bottom: 20px; line-height: 1.6;">{{ position.description[:200] }}{% if position.description|length > 200 %}...{% endif %}</p>
+                    
+                    {% if position.required_gpa or position.required_credits or position.required_level or position.required_school %}
+                    <div style="padding: 16px; background: white; border-radius: 10px; margin-bottom: 20px;">
+                        <h4 style="font-size: 0.9rem; font-weight: 600; color: var(--primary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Requirements</h4>
+                        <div style="display: grid; gap: 8px;">
+                            {% if position.required_gpa %}
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: var(--accent);">▪</span>
+                                <span style="font-size: 0.9rem;">Minimum GPA: {{ position.required_gpa }}</span>
+                            </div>
+                            {% endif %}
+                            {% if position.required_credits %}
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: var(--accent);">▪</span>
+                                <span style="font-size: 0.9rem;">Minimum Credits: {{ position.required_credits }}</span>
+                            </div>
+                            {% endif %}
+                            {% if position.required_level %}
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: var(--accent);">▪</span>
+                                <span style="font-size: 0.9rem;">Level: {{ position.required_level }}</span>
+                            </div>
+                            {% endif %}
+                            {% if position.required_school %}
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: var(--accent);">▪</span>
+                                <span style="font-size: 0.9rem;">School: {{ position.required_school }}</span>
+                            </div>
+                            {% endif %}
+                            {% if position.required_skills %}
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: var(--accent);">▪</span>
+                                <span style="font-size: 0.9rem;">Skills: {{ position.required_skills }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div style="display: flex; gap: 12px;">
+                        {% if position.id in applied_ids %}
+                            <button class="btn btn-secondary" disabled style="flex: 1; opacity: 0.6; cursor: not-allowed;">Already Applied</button>
+                        {% else %}
+                            <form method="POST" action="{{ url_for('apply_position', position_id=position.id) }}" style="flex: 1;">
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Apply Now</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="text-muted" style="font-size: 0.85rem; margin-top: 12px;">Posted {{ position.created_at.strftime('%B %d, %Y') }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="card text-center" style="padding: 60px 40px;">
+                <h3 style="color: var(--primary); margin-bottom: 16px;">No Positions Available</h3>
+                <p class="text-muted">Check back soon for new opportunities!</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

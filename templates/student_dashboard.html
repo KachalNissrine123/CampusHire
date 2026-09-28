@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard - CampusHire{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0;">
+    <div class="container">
+        <div style="margin-bottom: 40px;">
+            <h1>Welcome, {{ student.full_name }}!</h1>
+            <p class="text-muted" style="font-size: 1.1rem; margin-top: 8px;">Track your applications and manage your profile</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ applications|length }}</div>
+                <div class="stat-label">Total Applications</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, var(--accent) 0%, #C89460 100%);">
+                <div class="stat-value">{{ applications|selectattr('status', 'equalto', 'pending')|list|length }}</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, #2E7ACE 0%, #4A90E2 100%);">
+                <div class="stat-value">{{ applications|selectattr('status', 'equalto', 'under_review')|list|length }}</div>
+                <div class="stat-label">Under Review</div>
+            </div>
+            <div class="stat-card" style="background: linear-gradient(135deg, var(--success) 0%, var(--primary-light) 100%);">
+                <div class="stat-value">{{ applications|selectattr('status', 'equalto', 'accepted')|list|length }}</div>
+                <div class="stat-label">Accepted</div>
+            </div>
+        </div>
+        
+        <div class="grid grid-2" style="align-items: start;">
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">My Applications</h3>
+                    </div>
+                    
+                    {% if applications %}
+                        <div style="display: grid; gap: 16px;">
+                            {% for app in applications %}
+                            <div style="padding: 20px; border: 1.5px solid var(--border); border-radius: 12px; transition: all 0.3s ease;">
+                                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                                    <div>
+                                        <h4 style="color: var(--primary); margin-bottom: 4px;">{{ app.position_title }}</h4>
+                                        <p class="text-muted" style="font-size: 0.9rem;">Applied {{ app.applied_at.strftime('%B %d, %Y') }}</p>
+                                    </div>
+                                    <span class="badge badge-{{ app.status }}">{{ app.status.replace('_', ' ').title() }}</span>
+                                </div>
+                                
+                                {% if app.ai_score %}
+                                <div style="margin-bottom: 12px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <span style="font-size: 0.9rem; font-weight: 500;">Match Score</span>
+                                        <span style="font-size: 0.9rem; font-weight: 600; color: var(--primary);">{{ (app.ai_score * 100)|round|int }}%</span>
+                                    </div>
+                                    <div style="height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;">
+                                        <div style="height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-light)); width: {{ (app.ai_score * 100)|round|int }}%; transition: width 0.5s ease;"></div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if app.ai_feedback %}
+                                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">{{ app.ai_feedback }}</p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div style="text-align: center; padding: 40px 20px;">
+                            <p class="text-muted">No applications yet</p>
+                            <a href="{{ url_for('student_positions') }}" class="btn btn-primary mt-3">Browse Positions</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recent Notifications</h3>
+                    </div>
+                    
+                    {% if notifications %}
+                        <div style="display: grid; gap: 12px;">
+                            {% for notif in notifications %}
+                            <div style="padding: 16px; background: {% if not notif.is_read %}#F0F9F4{% else %}var(--background){% endif %}; border-radius: 10px; border-left: 3px solid var(--primary);">
+                                <p style="font-size: 0.95rem; margin-bottom: 4px;">{{ notif.message }}</p>
+                                <p class="text-muted" style="font-size: 0.85rem;">{{ notif.timestamp.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No notifications yet</p>
+                    {% endif %}
+                </div>
+                
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Actions</h3>
+                    </div>
+                    <div style="display: grid; gap: 12px;">
+                        <a href="{{ url_for('student_positions') }}" class="btn btn-primary">Browse Available Positions</a>
+                        <a href="{{ url_for('student_profile') }}" class="btn btn-secondary">Update Profile & CV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

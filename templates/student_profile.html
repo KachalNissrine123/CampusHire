@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - CampusHire{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0;">
+    <div class="container">
+        <div style="max-width: 700px; margin: 0 auto;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">My Profile</h2>
+                    <p class="text-muted" style="margin-top: 8px;">Keep your information up to date to improve your job matches</p>
+                </div>
+                
+                <form method="POST" action="{{ url_for('student_profile') }}" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="full_name" class="form-control" value="{{ student.full_name }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" value="{{ student.email }}" disabled style="background: var(--background); cursor: not-allowed;">
+                        <small class="text-muted">Email cannot be changed</small>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">School</label>
+                            <select name="school" class="form-control" required>
+                                <option value="SSE" {% if student.school == 'SSE' %}selected{% endif %}>SSE</option>
+                                <option value="SBA" {% if student.school == 'SBA' %}selected{% endif %}>SBA</option>
+                                <option value="SHSS" {% if student.school == 'SHSS' %}selected{% endif %}>SHSS</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Student Type</label>
+                            <select name="student_type" class="form-control" required>
+                                <option value="Undergraduate" {% if student.student_type == 'Undergraduate' %}selected{% endif %}>Undergraduate</option>
+                                <option value="Graduate" {% if student.student_type == 'Graduate' %}selected{% endif %}>Graduate</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Level</label>
+                            <select name="level" class="form-control" required>
+                                <option value="Freshman" {% if student.level == 'Freshman' %}selected{% endif %}>Freshman</option>
+                                <option value="Sophomore" {% if student.level == 'Sophomore' %}selected{% endif %}>Sophomore</option>
+                                <option value="Junior" {% if student.level == 'Junior' %}selected{% endif %}>Junior</option>
+                                <option value="Senior" {% if student.level == 'Senior' %}selected{% endif %}>Senior</option>
+                                <option value="Graduate" {% if student.level == 'Graduate' %}selected{% endif %}>Graduate</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">GPA</label>
+                            <input type="number" name="gpa" class="form-control" step="0.01" min="0" max="4" value="{{ student.gpa if student.gpa else '' }}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Completed Credits</label>
+                        <input type="number" name="credits" class="form-control" min="0" value="{{ student.credits if student.credits else '' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Upload CV</label>
+                        {% if student.cv_path %}
+                            <div style="padding: 12px; background: var(--background); border-radius: 8px; margin-bottom: 8px;">
+                                <p style="margin-bottom: 4px; font-weight: 500;">Current CV: {{ student.cv_path }}</p>
+                                <a href="{{ url_for('uploaded_file', filename='cvs/' + student.cv_path) }}" target="_blank" style="color: var(--primary); font-size: 0.9rem; margin-right: 16px;">View CV</a>
+                                <label style="font-size: 0.85rem; color: var(--text-secondary);">
+                                    <input type="checkbox" name="remove_cv" value="1" style="margin-right: 4px;">
+                                    Remove current CV
+                                </label>
+                            </div>
+                        {% endif %}
+                        <input type="file" name="cv" class="form-control" accept=".pdf,.doc,.docx">
+                        <small class="text-muted">Accepted formats: PDF, DOC, DOCX (Max 16MB)</small>
+                    </div>
+                    
+                    
+                    <button type="submit" class="btn btn-primary btn-full">Update Profile</button>
+                    
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('student_dashboard') }}" class="text-muted" style="text-decoration: none;">← Back to Dashboard</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
