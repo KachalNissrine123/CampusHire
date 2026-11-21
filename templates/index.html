@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Campus jobs at AUI, <span style="color: var(--accent);">in one place</span></h1>
+            <p class="hero-subtitle">Departments like the SAO, the RA Program and the CLE post their student positions here. Students apply with their CV, and every application is screened against the posting before a department sees it.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('student_register') }}" class="btn btn-primary">Get Started as Student</a>
+                <a href="{{ url_for('department_register') }}" class="btn btn-secondary">Post a Position</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 80px 0; background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 style="color: var(--primary); margin-bottom: 16px;">How It Works</h2>
+            <p class="text-muted" style="font-size: 1.1rem;">From posting to decision</p>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="card">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem; font-weight: 700; margin-bottom: 20px;">1</div>
+                <h3 style="margin-bottom: 12px; color: var(--primary);">Create Profile</h3>
+                <p class="text-muted">Students add their school, level, GPA, credits and a PDF or DOCX CV. Departments post positions with the GPA, credits, level and skills they need.</p>
+            </div>
+            
+            <div class="card">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent), #C89460); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem; font-weight: 700; margin-bottom: 20px;">2</div>
+                <h3 style="margin-bottom: 12px; color: var(--primary);">Screening</h3>
+                <p class="text-muted">Each CV is read against the posting and given a score out of 100. Applications that clear the bar go to the department ranked by score, with a short reason attached.</p>
+            </div>
+            
+            <div class="card">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-light), var(--primary)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem; font-weight: 700; margin-bottom: 20px;">3</div>
+                <h3 style="margin-bottom: 12px; color: var(--primary);">Get Hired</h3>
+                <p class="text-muted">When a department accepts or rejects you, you get a notification on your dashboard.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 80px 0;">
+    <div class="container">
+        <div class="grid grid-2" style="gap: 60px; align-items: center;">
+            <div>
+                <h2 style="color: var(--primary); margin-bottom: 24px;">For Students</h2>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 28px;">See every open on-campus position and what it asks for before you apply.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--success); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Requirements (GPA, credits, school, level) shown on every posting</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--success); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Apply with the CV already on your profile</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--success); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>See your screening score and status for each application</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--success); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Get notified when a department decides</span>
+                    </li>
+                </ul>
+                <a href="{{ url_for('student_register') }}" class="btn btn-primary mt-4">Join as Student</a>
+            </div>
+            <div>
+                <div class="card" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white;">
+                    <h3 style="color: white; margin-bottom: 20px;">Built around AUI</h3>
+                    <div style="display: grid; gap: 20px;">
+                        <div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">3</div>
+                            <div style="opacity: 0.9;">Schools: SSE, SBA, SHSS</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">2</div>
+                            <div style="opacity: 0.9;">CV formats: PDF and DOCX</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">4</div>
+                            <div style="opacity: 0.9;">Statuses: pending, review, accepted, rejected</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 80px 0; background: white;">
+    <div class="container">
+        <div class="grid grid-2" style="gap: 60px; align-items: center;">
+            <div class="card" style="background: linear-gradient(135deg, var(--accent) 0%, #C89460 100%); color: white;">
+                <h3 style="color: white; margin-bottom: 20px;">For hiring managers</h3>
+                <div style="display: grid; gap: 20px;">
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">Ranked</div>
+                        <div style="opacity: 0.9;">Applicants sorted by score</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">Filtered</div>
+                        <div style="opacity: 0.9;">Weak matches screened out</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 700; font-family: 'Clash Display', sans-serif;">Private</div>
+                        <div style="opacity: 0.9;">CVs shown only to departments the student applied to</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 style="color: var(--primary); margin-bottom: 24px;">For Departments</h2>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 28px;">Post a position once and get a shortlist instead of an inbox full of CVs.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Set minimum GPA, credits, level, school and skills</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Applicants ranked by screening score, with the reason</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Open each applicant's CV from the list</span>
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: start; gap: 12px;">
+                        <span style="color: var(--accent); font-size: 1.25rem; font-weight: 700;">✓</span>
+                        <span>Change a status and the student is notified</span>
+                    </li>
+                </ul>
+                <a href="{{ url_for('department_register') }}" class="btn btn-accent mt-4">Register Department</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 80px 0; background: var(--primary-dark); color: white;">
+    <div class="container text-center">
+        <h2 style="color: var(--accent); margin-bottom: 24px;">Already have an account?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9;">Log in as a student or as a department.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url_for('student_login') }}" class="btn btn-primary">Student Login</a>
+            <a href="{{ url_for('department_login') }}" class="btn" style="background: var(--accent); color: white;">Department Login</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

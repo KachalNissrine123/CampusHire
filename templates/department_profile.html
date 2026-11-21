@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Department Profile - CampusHire{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0;">
+    <div class="container">
+        <div style="max-width: 700px; margin: 0 auto;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Department Profile</h2>
+                    <p class="text-muted" style="margin-top: 8px;">Update your department details and logo</p>
+                </div>
+
+                <form method="POST" enctype="multipart/form-data">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Department Name</label>
+                        <input type="text" name="name" class="form-control" value="{{ department.name }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control" rows="3">{{ department.description }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Logo</label>
+
+                        {% if department.logo_path %}
+                            <div style="padding: 12px; background: var(--background); border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;">
+                                <img src="{{ url_for('uploaded_file', filename='logos/' + department.logo_path) }}"
+                                     alt="Department Logo"
+                                     style="width: 100px; height: auto; border-radius: 8px; border: 1px solid var(--border);">
+
+                                <label style="font-size: 0.85rem; color: var(--text-secondary);">
+                                    <input type="checkbox" name="remove_logo" value="1" style="margin-right: 4px;">
+                                    Remove current logo
+                                </label>
+                            </div>
+                        {% endif %}
+
+                        <input type="file" name="logo" accept="image/*" class="form-control">
+                        <small class="text-muted">Accepted: PNG, JPG, SVG</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">Save Changes</button>
+
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('department_dashboard') }}" class="text-muted" style="text-decoration: none;">← Back to Dashboard</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

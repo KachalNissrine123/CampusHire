@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Department Registration - CampusHire{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0; min-height: calc(100vh - 200px);">
+    <div class="container">
+        <div style="max-width: 600px; margin: 0 auto;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Register Department</h2>
+                    <p class="text-muted" style="margin-top: 8px;">Create an account to post positions and hire students</p>
+                </div>
+                
+                <form method="POST" action="{{ url_for('department_register') }}" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="form-label">Department Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="e.g., IT Services, Library, Student Affairs" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="department@aui.ma" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control" placeholder="Brief description of your department..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Department Logo (Optional)</label>
+                        <input type="file" name="logo" class="form-control" accept="image/*">
+                        <small class="text-muted">Accepted formats: JPG, PNG, GIF (Max 16MB)</small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-accent btn-full">Register Department</button>
+                    
+                    <p class="text-center mt-3 text-muted">
+                        Already registered? <a href="{{ url_for('department_login') }}" style="color: var(--accent); font-weight: 500;">Login here</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

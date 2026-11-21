@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Create Position - CampusHire{% endblock %}
+
+{% block content %}
+<section style="padding: 60px 0;">
+    <div class="container">
+        <div style="max-width: 700px; margin: 0 auto;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Create New Position</h2>
+                    <p class="text-muted" style="margin-top: 8px;">Define requirements to find the best student candidates</p>
+                </div>
+                
+                <form method="POST" action="{{ url_for('create_position') }}">
+                    <div class="form-group">
+                        <label class="form-label">Position Title</label>
+                        <input type="text" name="title" class="form-control" placeholder="e.g., Student IT Assistant, Library Assistant" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Position Description</label>
+                        <textarea name="description" class="form-control" rows="5" placeholder="Describe the role, responsibilities, and what students will learn..." required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Minimum GPA (Optional)</label>
+                            <input type="number" name="required_gpa" class="form-control" step="0.01" min="0" max="4" placeholder="3.00">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Minimum Credits (Optional)</label>
+                            <input type="number" name="required_credits" class="form-control" min="0" placeholder="30">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Preferred Level (Optional)</label>
+                            <select name="required_level" class="form-control">
+                                <option value="">Any Level</option>
+                                <option value="Freshman">Freshman</option>
+                                <option value="Sophomore">Sophomore</option>
+                                <option value="Junior">Junior</option>
+                                <option value="Senior">Senior</option>
+                                <option value="Graduate">Graduate</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Preferred School (Optional)</label>
+                            <select name="required_school" class="form-control">
+                                <option value="">Any School</option>
+                                <option value="SSE">SSE</option>
+                                <option value="SBA">SBA</option>
+                                <option value="SHSS">SHSS</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Required Skills/Keywords (Optional)</label>
+                        <input type="text" name="required_skills" class="form-control" placeholder="e.g., Python, Excel, Communication, Research">
+                        <small class="text-muted">Comma-separated list of skills or keywords to match</small>
+                    </div>
+                    
+                    <div style="padding: 20px; background: #FFF4E6; border-left: 4px solid var(--warning); border-radius: 10px; margin-bottom: 24px;">
+                        <h4 style="font-size: 1rem; font-weight: 600; color: var(--warning); margin-bottom: 8px;">💡 AI Matching</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">Applications will be automatically scored based on how well students match your requirements. Higher scores indicate better fits.</p>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-accent btn-full">Create Position</button>
+                    
+                    <div class="text-center mt-3">
+                        <a href="{{ url_for('department_dashboard') }}" class="text-muted" style="text-decoration: none;">← Back to Dashboard</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
